@@ -1,4 +1,5 @@
 const datastore = require('../store/data.js')
+var mustache = require("mustache");
 
 module.exports = function (RED) {
     function ChartNode (config) {

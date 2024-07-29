@@ -6,7 +6,9 @@
 </template>
 
 <script>
+
 import { Chart } from 'chart.js/auto' // eslint-disable-line n/file-extension-in-import
+import { mustache } from 'mustache'
 import 'chartjs-adapter-luxon'
 
 import { shallowRef } from 'vue'
@@ -230,20 +232,21 @@ export default {
         },
         getXDisplayFormats (xAxisFormatType) {
             const xDisplayFormats = {}
+
             if (xAxisFormatType === 'auto' || !xAxisFormatType || xAxisFormatType === '') {
                 // If automatic format or no format (backwards compatibility for older nodes)
                 xDisplayFormats.millisecond = 'HH:mm:ss'
             } else if (xAxisFormatType === 'custom') {
                 // For the custom format, the entered format is stored by the typedInput in its value field
-                xDisplayFormats.millisecond = this.props.xAxisFormat
-                xDisplayFormats.second = this.props.xAxisFormat
-                xDisplayFormats.minute = this.props.xAxisFormat
-                xDisplayFormats.hour = this.props.xAxisFormat
-                xDisplayFormats.day = this.props.xAxisFormat
-                xDisplayFormats.week = this.props.xAxisFormat
-                xDisplayFormats.month = this.props.xAxisFormat
-                xDisplayFormats.quarter = this.props.xAxisFormat
-                xDisplayFormats.year = this.props.xAxisFormat
+                xDisplayFormats.millisecond = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.second = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.minute = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.hour = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.day = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.week = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.month = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.quarter = mustache.parse(this.props.xAxisFormat)
+                xDisplayFormats.year = mustache.parse(this.props.xAxisFormat)
             } else {
                 // For all other formats, the format is stored by the typedInput in the type field
                 xDisplayFormats.millisecond = xAxisFormatType
